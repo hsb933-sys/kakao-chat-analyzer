@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Dashboard from './components/Dashboard'
+import PrevProjectBanner from './components/PrevProjectBanner'
 import UploadScreen from './components/UploadScreen'
 import { parseKakaoChat } from './lib/parser'
 import { computeStats } from './lib/stats'
@@ -23,7 +24,14 @@ export default function App() {
     setFilename(name)
   }
 
-  if (!stats) return <UploadScreen onFile={handleFile} error={error} />
-
-  return <Dashboard stats={stats} filename={filename} onReset={() => setStats(null)} />
+  return (
+    <>
+      <PrevProjectBanner />
+      {!stats ? (
+        <UploadScreen onFile={handleFile} error={error} />
+      ) : (
+        <Dashboard stats={stats} filename={filename} onReset={() => setStats(null)} />
+      )}
+    </>
+  )
 }
